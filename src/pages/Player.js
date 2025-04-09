@@ -115,33 +115,18 @@ export default Blits.Component('Player', {
     play() {
       this.showControls(1)
       this.hideTimeout = this.$setTimeout(() => this.showControls(0), 3000)
-
-      if (PlayerManager.state.playingState) {
+      if (PlayerManager.state.playingState == true) {
         PlayerManager.pause()
         this.playing = false
       } else {
-        // Ensure user interaction before playing
-        document.body.addEventListener(
-          'click',
-          () => {
-            console.log('User interacted, playing video.')
-            PlayerManager.play()
-          },
-          { once: true }
-        )
-
-        console.log('Waiting for user interaction...')
+        console.log('play!')
+        PlayerManager.play()
+        this.playing = true
       }
     },
-
-    showControls(visible) {
-      this.controlsVisibility = visible ? 1 : 0
-      if (this.hideTimeout) {
-        this.$clearTimeout(this.hideTimeout)
-      }
-      if (visible) {
-        this.hideTimeout = this.$setTimeout(() => this.showControls(0), 3000)
-      }
+    showControls(v) {
+      this.$clearTimeout(this.hideTimeout)
+      this.controlsVisibility = v
     },
   },
 })

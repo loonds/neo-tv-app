@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Comcast Cable Communications Management, LLC
+ * Copyright 2023 Comcast Cable Communications Management, LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,20 +15,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import Blits from '@lightningjs/blits'
-
-export default Blits.Component('Item', {
-  template: `
-    <Element :w="300" :h="200" :padding="10" color="#222">
-      <!-- <Image :src="this.image" w="300" h="150" /> -->
-      <Text :content="this.label" y="160" color="#fff" />
-    </Element>
-  `,
-  // props: ['item', 'width', 'height'],
-  props: ['id', 'label', 'image'],
-  state() {
-    return {
-      radius: 6,
-    }
+export default {
+  light: {
+    color1: '#f8fafc',
+    color2: '#e2e8f0',
+    color3: '#1e293b',
+    color4: '#0369a1',
+    bg: '#f1f5f9',
   },
-})
+  dark: {
+    color1: '#475569',
+    color2: '#64748b',
+    color3: '#cbd5e1',
+    color4: '#38bdf8',
+    bg: '#1e293b80',
+  },
+}

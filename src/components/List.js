@@ -61,12 +61,16 @@ export default Blits.Component('List', {
     },
   },
   watch: {
-    focused(value) {
-      const focusItem = this.$select(`list-item-${this.items[value].id}`)
-      if (focusItem && focusItem.$focus) {
-        focusItem.$focus()
-        this.scrollToFocus(value)
-      }
+    // focused(value) {
+    //   const focusItem = this.$select(`list-item-${this.items[value].id}`)
+    //   if (focusItem && focusItem.$focus) {
+    //     focusItem.$focus()
+    //     this.scrollToFocus(value)
+    //   }
+    // },
+    focused() {
+      const item = this.items?.[this.focusIndex]
+      return item ? item.id : null
     },
   },
   methods: {

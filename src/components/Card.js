@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Comcast Cable Communications Management, LLC
+ * Copyright 2023 Comcast Cable Communications Management, LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,19 +16,25 @@
  */
 
 import Blits from '@lightningjs/blits'
+import Square from './Square.js'
 
-export default Blits.Component('Item', {
+export default Blits.Component('Card', {
+  components: {
+    Square,
+  },
   template: `
-    <Element :w="300" :h="200" :padding="10" color="#222">
-      <!-- <Image :src="this.image" w="300" h="150" /> -->
-      <Text :content="this.label" y="160" color="#fff" />
+    <Element w="$w" h="$h" color="#0891b2">
+      <Square x="80" y="80" />
+      <Square x="20" y="20" size="40" />
     </Element>
   `,
-  // props: ['item', 'width', 'height'],
-  props: ['id', 'label', 'image'],
-  state() {
-    return {
-      radius: 6,
-    }
+  props: ['size'],
+  computed: {
+    w() {
+      return this.size === 'large' ? 400 : 200
+    },
+    h() {
+      return this.size === 'large' ? 500 : 300
+    },
   },
 })
