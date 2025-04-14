@@ -15,10 +15,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-const API_KEY_V4 = import.meta.env.VITE_TMDB_KEY
-const API_BASE = import.meta.env.VITE_TMDB_BASE_URL
+const API_KEY_V4 = import.meta.env.TOKEN
+const API_BASE = import.meta.env.BASE_URL
 
-let tmdbConfig
+let config
 let baseImageUrl
 const basePosterSize = 'w185'
 
@@ -34,7 +34,7 @@ export function getImageUrl(path, posterSize = basePosterSize) {
 }
 
 function get(...args) {
-  if (tmdbConfig) {
+  if (config) {
     return _get(...args)
   } else {
     return loadConfig().then(() => _get(...args))
@@ -50,7 +50,7 @@ function _get(path, params = {}) {
 
 function loadConfig() {
   return _get('/configuration').then((data) => {
-    tmdbConfig = data
+    config = data
     baseImageUrl = data.images.secure_base_url
     return data
   })

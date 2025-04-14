@@ -1,20 +1,3 @@
-/*
- * Copyright 2023 Comcast Cable Communications Management, LLC
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import Blits from '@lightningjs/blits'
 import PortalRow from '../components/PortalRow.js'
 import SourceInfo from '../components/SourceInfo.js'
@@ -29,6 +12,7 @@ export default Blits.Component('Portal', {
   template: `
     <Element w="1920" h="1080" color="{top: '#44037a', bottom: '#240244'}">
       <PortalRow
+        v-if="$demo.length > 0"
         mount="{y: 0.5}"
         h="500"
         :y.transition="-$rowFocused * 420 + 550"
@@ -58,7 +42,7 @@ export default Blits.Component('Portal', {
           <Element src="assets/blits-logo-full.png" w="200" h="112" x="60" />
           <Element w="2" h="120" y="-10" color="#ffffff80" x="300" />
           <Element x="320" y="16">
-            <Text y="0" size="36">Example App</Text>
+            <Text y="0" size="36">Neo TV App</Text>
             <Text y="50" size="24">v{{ $version }}</Text>
           </Element>
         </Element>
@@ -72,48 +56,8 @@ export default Blits.Component('Portal', {
       rowFocused: 0,
       rows: ['demo', 'example', 'benchmark'],
       logoOffset: 50,
-      demo: [
-        {
-          title: 'Loader',
-          id: 'demos/loading',
-          description: 'A basic loading screen',
-        },
-        {
-          title: 'Intro',
-          id: 'demos/intro',
-          description: 'A splash screen with custom animations',
-        },
-        {
-          title: 'Theming',
-          id: 'demos/theming',
-          description: 'Dynamically changing the styling of a component with themes',
-        },
-        {
-          title: 'TMDB',
-          id: 'demos/tmdb',
-          description: 'The Movie Database (TMDB) example using data from a remote API',
-        },
-        {
-          title: 'Sprites',
-          id: 'demos/sprites',
-          description: 'Display multiple images while keeping low memory footprint',
-        },
-        {
-          title: 'Focus',
-          id: 'demos/focushandling',
-          description: 'Managing focus between components in a simple layout',
-        },
-        {
-          title: 'Memory Game',
-          id: 'demos/memory-game',
-          description: 'Memory game with speech assistence (for accessibility)',
-        },
-        {
-          title: 'Video player',
-          id: 'demos/player',
-          description: 'Example of Video Playback with basic controls',
-        },
-      ],
+      demo: [],
+      loading: true,
       example: [
         {
           title: 'Positioning',
@@ -125,127 +69,7 @@ export default Blits.Component('Portal', {
           id: 'examples/colors',
           description: 'Using different formats and notations for defining colors',
         },
-        {
-          title: 'Gradients',
-          id: 'examples/gradients',
-          description: 'Example of Basic gradients',
-        },
-        {
-          title: 'Transitions',
-          id: 'examples/transitions',
-          description: 'Comparing different transition easing functions',
-        },
-        {
-          title: 'Components',
-          id: 'examples/components',
-          description: 'Reusable Components',
-        },
-        {
-          title: 'Alpha',
-          id: 'examples/alpha',
-          description: 'Applying transparency to Elements, Images and Components',
-        },
-        {
-          title: 'Scaling',
-          id: 'examples/scaling',
-          description: 'Resizing and scaling Elements and Components',
-        },
-        {
-          title: 'Rotation',
-          id: 'examples/rotation',
-          description: 'Rotating Elements',
-        },
-        {
-          title: 'Key input',
-          id: 'examples/keyinput',
-          description: 'Handling user input events',
-        },
-        {
-          title: 'For Loop',
-          id: 'examples/forloop',
-          description: 'Iterating over Elements and Components using for loops',
-        },
-        {
-          title: 'Advanced loop',
-          id: 'examples/forloop-advanced',
-          description: 'Testing various Array operations with a for loop',
-        },
-        {
-          title: 'Effects',
-          id: 'examples/effects',
-          description: 'Applying one or multiple effects (aka shaders)',
-        },
-
-        {
-          title: 'Show',
-          id: 'examples/showif',
-          description: 'Conditionally show or hide Elements and Components',
-        },
-        {
-          title: 'Events',
-          id: 'examples/events',
-          description: 'Communication between components by emitting and listening for events',
-        },
-        {
-          title: 'Images',
-          id: 'examples/images',
-          description: '1 image says more than 1000 words ;)',
-        },
-        {
-          title: 'Texts',
-          id: 'examples/texts',
-          description: 'Displaying and formatting text',
-        },
-        {
-          title: 'Slots',
-          id: 'examples/slots',
-          description: 'Insert dynamic content from a parent into a child using slots',
-        },
-        {
-          title: 'Viewport',
-          id: 'examples/viewport',
-          description: 'Lifecycle events when entering and leaving the viewport (margins)',
-        },
-        {
-          title: 'Router Hooks',
-          id: 'examples/router-hooks',
-          description: 'Example of router before hook',
-        },
-        {
-          title: 'Image resizing',
-          id: 'examples/resize',
-          description: 'Using the "fit" syntax for resizing images on the fly',
-        },
-        {
-          title: 'Translations',
-          id: 'examples/translations',
-          description: 'Language Plugin for internationalization',
-        },
-        {
-          title: 'Firebolt',
-          id: 'examples/firebolt',
-          description: 'Example Firebolt Integration',
-        },
-        {
-          title: 'Keycodes',
-          id: 'examples/keycodes',
-          description: 'Find the correct keycode mappings for your device',
-        },
-        {
-          title: 'Special Chars',
-          id: 'examples/special-characters',
-          description: 'Accents and special characters with MSDF fonts',
-        },
-        {
-          title: 'Layout',
-          id: 'examples/layout',
-          description: 'Using the built-in "Layout" Component',
-        },
-        {
-          title: 'Announcer',
-          id: 'examples/announcer',
-          description: 'Using the built-in "Announcer" plugin',
-        },
+        // More items...
       ],
       benchmark: [
         {
@@ -257,9 +81,11 @@ export default Blits.Component('Portal', {
     }
   },
   hooks: {
-    ready() {
+    init() {
       this.logoOffset = 0
       this.$trigger('rowFocused')
+      // Fetch API data
+      this.fetchData()
     },
   },
   watch: {
@@ -274,6 +100,47 @@ export default Blits.Component('Portal', {
     },
     down() {
       this.rowFocused = (this.rowFocused + 1) % this.rows.length
+    },
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await fetch('https://api-houston.newsoutnow.com/api/v2/channels', {
+          method: 'POST',
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIxMjY3MWRmLTQ0ZjEtNGNlOS1hMzk1LTM2MDlkMDc0MGU4MyIsIm1hY19hZGRyZXNzIjoiQW5kcm9pZC1UViIsImlhdCI6MTc0MzYxMTI3N30.DTdQ3JtiQy3uY9lQuGhL4uTvHcD8NWKhw9DwYZ4utKpj7vRJiOMfCKTPmWhfqdkSDG4n348sbOw88CCPNL0hggZSAnygW16WLX1MpSe0N88n-qSnwx14lD5l6eH9Zm9vs3d6BUVtnxhaxvRTeEdB-euI4nV3TABTg8OVRy5a2yBJP5QGS6csb5uYGtE1hbxB9dwKJex-mlqaMwlhCBtnlSRcfToWcixyznOFTL7uN68kma6GVrsOizXSCToG4aKLsApFU_82Et0RbvBUl5U0CZeIr7I3Ok74NGsl0AHeKlbtAqFbYvioIlBYCFDov1aT4ZpsEoprFbnTND3ZX8Aw0A',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ language: 'Hindi' }),
+        })
+
+        if (!response.ok) {
+          const text = await response.text()
+          console.error('API Error:', response.status, text)
+          throw new Error('API request failed')
+        }
+
+        const data = await response.json()
+        console.log('Response Data:', data.data)
+        if (data.data && Array.isArray(data.data)) {
+          // Map API data into the correct format for the demo
+          this.demo = data.data.map((channel) => ({
+            title: channel.channel_name,
+            id: channel.id || 'default-id',
+            description: channel.description || 'No description available',
+          }))
+          console.log('Fetched Channels:', this.example)
+          console.log('Update Data :', this.demo)
+          this.loading = false // Set loading to false after data is fetched
+          this.$trigger('rowFocused') // Trigger the UI update after state change
+        } else {
+          console.error('Invalid API response:', data)
+        }
+      } catch (err) {
+        console.error('Failed to fetch channels:', err)
+        this.loading = false // Stop loading even if there's an error
+      }
     },
   },
 })

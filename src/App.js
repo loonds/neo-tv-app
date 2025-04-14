@@ -85,64 +85,8 @@ export default Blits.Application({
     { path: '/otp-verify', component: () => import('./pages/VerifyOTP.js') },
     // Demo routes
     { path: '/', component: Portal, options: { keepAlive: true } },
-    // Loading a route via a dynamic import
-    {
-      path: '/demos/loading',
-      component: () => import('./pages/Loading.js'),
-    },
-    // Loading a route in a Promise
-    {
-      path: '/demos/intro',
-      component: () => {
-        // imagine this is an API call or some other async action
-        return new Promise((resolve) => {
-          resolve(Intro)
-        })
-      },
-    },
-    { path: '/demos/theming', component: Theming },
+    { path: '/player', component: Player },
     { path: '/demos/tmdb', component: Tmdb },
-    { path: '/demos/sprites', component: Sprites },
-    { path: '/demos/focushandling', component: FocusHandling },
-    {
-      path: '/demos/memory-game',
-      component: MemoryGame,
-      announce: "Let's play Memory",
-    },
-    { path: '/demos/player', component: Player },
-    // Example and test routes
-    { path: '/examples/positioning', component: Positioning },
-    { path: '/examples/colors', component: Colors },
-    { path: '/examples/gradients', component: Gradients },
-    { path: '/examples/transitions', component: Transitions },
-    { path: '/examples/alpha', component: Alpha },
-    { path: '/examples/scaling', component: Scaling },
-    { path: '/examples/rotation', component: Rotation },
-    { path: '/examples/keyinput', component: KeyInput },
-    { path: '/examples/texts', component: Texts },
-    { path: '/examples/images', component: Images },
-    { path: '/examples/components', component: Components },
-    { path: '/examples/forloop', component: ForLoop },
-    { path: '/examples/forloop-advanced', component: ForLoopAdvanced },
-    { path: '/examples/effects', component: Effects },
-    { path: '/examples/showif', component: ShowIf },
-    { path: '/examples/events', component: Events },
-    { path: '/examples/slots', component: Slots },
-    { path: '/examples/viewport', component: Viewport },
-    ...RouterHookRoutes,
-    { path: '/examples/resize', component: Resize },
-    { path: '/examples/languageplugin', component: LanguagePlugin },
-    { path: '/examples/keycodes', component: KeyCodes },
-    { path: '/examples/translations', component: LanguagePlugin },
-    { path: '/examples/special-characters', component: SpecialCharacters },
-    { path: '/examples/layout', component: Layout },
-    {
-      path: '/examples/announcer',
-      component: Announcer,
-      announce: 'Welcome to the announcement example page',
-    },
-    // Benchmarks and stress tests
-    { path: '/benchmarks/exponential', component: Exponential },
     ...FireBoltRoutes,
   ],
   hooks: {

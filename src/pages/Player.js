@@ -34,19 +34,12 @@ export default Blits.Component('Player', {
             <Element y="14" x="14" w="32" h="32" :src="$playing ? 'assets/player/pause.png' : 'assets/player/play.png'" />
           </Element>
           <Element
-          
-             y="22"
-        
-               x="100"
-       
-                w="$progressLength"
-     
-                  h="16"
-    
-                   color="#ffffff80"
-  
-                     :effects="[{type: 'radius', props: {radius:8}}]"
-          
+            y="22"
+            x="100"
+            w="$progressLength"
+            h="16"
+            color="#ffffff80"
+            :effects="[{type: 'radius', props: {radius:8}}]"
           >
             <Element
               h="16"
@@ -88,7 +81,8 @@ export default Blits.Component('Player', {
     },
     async ready() {
       await PlayerManager.load({
-        streamUrl: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
+        streamUrl:
+          'https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8',
       })
       const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
       const duration = PlayerManager.getVideoDuration()
