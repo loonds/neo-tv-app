@@ -34,12 +34,19 @@ export default Blits.Component('Player', {
             <Element y="14" x="14" w="32" h="32" :src="$playing ? 'assets/player/pause.png' : 'assets/player/play.png'" />
           </Element>
           <Element
-            y="22"
-            x="100"
-            w="$progressLength"
-            h="16"
-            color="#ffffff80"
-            :effects="[{type: 'radius', props: {radius:8}}]"
+          
+             y="22"
+        
+               x="100"
+       
+                w="$progressLength"
+     
+                  h="16"
+    
+                   color="#ffffff80"
+  
+                     :effects="[{type: 'radius', props: {radius:8}}]"
+          
           >
             <Element
               h="16"
