@@ -1,20 +1,3 @@
-/*
- * Copyright 2023 Comcast Cable Communications Management, LLC
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import Blits from '@lightningjs/blits'
 
 import { fetchAllChannelBylanguage, fetchAllLanguage } from '../api/providers/'
@@ -34,7 +17,7 @@ export default Blits.Component('TMdb', {
           :y.transition="{value: $contentY, duration: $duration}"
           :alpha.transition="{value: $alpha, duration: $duration}"
         >
-          <Element src="assets/logo.png" x="140" y="90" w="243" h="52" />
+          <Element src="assets/logo.png" x="140" y="90" w="193" h="102" />
           <Text
             :content="$title"
             font="raleway"
@@ -87,49 +70,49 @@ export default Blits.Component('TMdb', {
     async init() {
       this.rows = [
         {
-          title: 'Popular Movies',
-          items: await fetchAllChannelBylanguage('English'),
+          title: 'Best Hindi news channels',
+          items: await fetchAllChannelBylanguage('Hindi'),
           type: 'Poster',
           width: 215,
           y: 0,
         },
         {
-          title: 'Best Western movies',
-          items: await fetchAllChannelBylanguage('Punjabi'),
+          title: 'English News channels',
+          items: await fetchAllChannelBylanguage('English'),
           type: 'Hero',
           width: 1370,
           y: 358,
         },
         {
-          title: 'Best Comedy movies',
-          items: await fetchAllLanguage(),
+          title: 'Punjabi News channels',
+          items: await fetchAllChannelBylanguage('Punjabi'),
           type: 'PosterTitle',
           width: 215,
           y: 1158,
         },
         {
-          title: 'Popular TV shows',
+          title: 'Entertainment channels',
           items: await fetchAllChannelBylanguage('Entertainment'),
           type: 'PosterTitle',
           width: 215,
           y: 1536,
         },
         {
-          title: 'Best Adventure and Action movies',
+          title: 'International News channels',
           items: await fetchAllChannelBylanguage('International'),
           type: 'Hero',
           width: 1370,
           y: 1914,
         },
         {
-          title: 'Best Documentaries',
+          title: 'Regional News channels',
           items: await fetchAllChannelBylanguage('Regional'),
           type: 'PosterTitle',
           width: 215,
           y: 2714,
         },
         {
-          title: 'Best Western movies 2',
+          title: 'Bangla News channels',
           items: await fetchAllChannelBylanguage('Bangla'),
           type: 'PosterTitle',
           width: 215,

@@ -75,5 +75,19 @@ export default Blits.Component('TmdbRow', {
     right() {
       this.focused = Math.min(this.focused + 1, this.items.length - 1)
     },
+    enter() {
+      if (this.stream_url) {
+        console.log('Passing stream_url:', this.stream_url)
+        this.$router.to('/player', {
+          stream_url: this.stream_url,
+        })
+      } else {
+        console.error('❌ stream_url is undefined or null!')
+      }
+    },
+    back() {
+      // intercept
+      this.$router.back()
+    },
   },
 })

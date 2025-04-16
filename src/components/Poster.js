@@ -50,4 +50,21 @@ export default Blits.Component('Poster', {
       this.scale = 1
     },
   },
+  input: {
+    enter() {
+      const streamUrl = this.item?.stream_url
+      if (streamUrl) {
+        console.log('🚀 Navigating to /player with stream_url:', streamUrl)
+        this.$router.to('/player', {
+          stream_url: streamUrl,
+        })
+      } else {
+        console.error('❌ stream_url is missing or invalid in item:', this.item)
+      }
+    },
+    back() {
+      // intercept
+      this.$router.back()
+    },
+  },
 })
