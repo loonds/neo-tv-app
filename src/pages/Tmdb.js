@@ -17,7 +17,7 @@
 
 import Blits from '@lightningjs/blits'
 
-import { fetchPopular, fetchGenreMovies } from '../api/providers/'
+import { fetchAllChannelBylanguage, fetchAllLanguage } from '../api/providers/'
 import TmdbRow from '../components/TmdbRow.js'
 import Background from '../components/Background.js'
 
@@ -88,49 +88,49 @@ export default Blits.Component('TMdb', {
       this.rows = [
         {
           title: 'Popular Movies',
-          items: await fetchPopular('movie'),
+          items: await fetchAllChannelBylanguage('English'),
           type: 'Poster',
           width: 215,
           y: 0,
         },
         {
           title: 'Best Western movies',
-          items: await fetchGenreMovies(['Western']),
+          items: await fetchAllChannelBylanguage('Punjabi'),
           type: 'Hero',
           width: 1370,
           y: 358,
         },
         {
           title: 'Best Comedy movies',
-          items: await fetchGenreMovies(['Comedy']),
+          items: await fetchAllLanguage(),
           type: 'PosterTitle',
           width: 215,
           y: 1158,
         },
         {
           title: 'Popular TV shows',
-          items: await fetchPopular('tv'),
+          items: await fetchAllChannelBylanguage('Entertainment'),
           type: 'PosterTitle',
           width: 215,
           y: 1536,
         },
         {
           title: 'Best Adventure and Action movies',
-          items: await fetchGenreMovies(['adventure', 'action']),
+          items: await fetchAllChannelBylanguage('International'),
           type: 'Hero',
           width: 1370,
           y: 1914,
         },
         {
           title: 'Best Documentaries',
-          items: await fetchGenreMovies('Documentary'),
+          items: await fetchAllChannelBylanguage('Regional'),
           type: 'PosterTitle',
           width: 215,
           y: 2714,
         },
         {
           title: 'Best Western movies 2',
-          items: await fetchGenreMovies('Western'),
+          items: await fetchAllChannelBylanguage('Bangla'),
           type: 'PosterTitle',
           width: 215,
           y: 3092,

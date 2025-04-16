@@ -39,7 +39,7 @@ export default Blits.Component('Portal', {
       <Element w="1920" h="200" color="#44037a">
         <Element w="1920" h="70" y="200" color="{top: '#44037a'}" />
         <Element :y.transition="{value: 80 - $logoOffset, duration: 400}">
-          <Element src="assets/blits-logo-full.png" w="200" h="112" x="60" />
+          <Element src="assets/logo.png" w="200" h="112" x="60" />
           <Element w="2" h="120" y="-10" color="#ffffff80" x="300" />
           <Element x="320" y="16">
             <Text y="0" size="36">Neo TV App</Text>
@@ -56,36 +56,37 @@ export default Blits.Component('Portal', {
       rowFocused: 0,
       rows: ['demo', 'example', 'benchmark'],
       logoOffset: 50,
-      demo: [],
-      loading: true,
-      example: [
+      demo: [
         {
-          title: 'Positioning',
-          id: 'examples/positioning',
-          description: 'Positioning Elements and Components',
+          title: 'Quick Watch',
+          id: 'demo/quick-watch',
+          description: 'Quick Watch Elements and Components',
+          image: 'assets/image.png',
+          stream_url:
+            'https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8',
         },
-        {
-          title: 'Colors',
-          id: 'examples/colors',
-          description: 'Using different formats and notations for defining colors',
-        },
-        // More items...
+        // ... more demo items
       ],
+      loading: true,
+      example: [],
       benchmark: [
         {
           title: 'Exponential',
           id: 'benchmarks/exponential',
           description: 'Spawn a large number of components at an exponential rate',
+          image: 'assets/positioning.png',
+          stream_url: 'https://www.youtube.com/watch?v=1',
         },
       ],
     }
   },
   hooks: {
     init() {
+      this.fetchData()
+    },
+    ready() {
       this.logoOffset = 0
       this.$trigger('rowFocused')
-      // Fetch API data
-      this.fetchData()
     },
   },
   watch: {
@@ -124,22 +125,21 @@ export default Blits.Component('Portal', {
         const data = await response.json()
         console.log('Response Data:', data.data)
         if (data.data && Array.isArray(data.data)) {
-          // Map API data into the correct format for the demo
-          this.demo = data.data.map((channel) => ({
+          this.example = data.data.map((channel) => ({
             title: channel.channel_name,
             id: channel.id || 'default-id',
             description: channel.description || 'No description available',
+            image: channel.image || 'assets/image.png',
+            stream_url: channel.stream_url || 'https://www.youtube.com/watch?v=1',
           }))
-          console.log('Fetched Channels:', this.example)
-          console.log('Update Data :', this.demo)
-          this.loading = false // Set loading to false after data is fetched
-          this.$trigger('rowFocused') // Trigger the UI update after state change
+          this.loading = false
+          this.$trigger('rowFocused')
         } else {
           console.error('Invalid API response:', data)
         }
       } catch (err) {
         console.error('Failed to fetch channels:', err)
-        this.loading = false // Stop loading even if there's an error
+        this.loading = false
       }
     },
   },

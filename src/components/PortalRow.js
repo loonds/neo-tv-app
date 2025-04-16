@@ -37,6 +37,8 @@ export default Blits.Component('PortalRow', {
           title="$item.title"
           description="$item.description"
           id="$item.id"
+          image="$item.image"
+          stream_url="$item.stream_url"
           index="$index"
           :ref="'item'+$index"
           key="$item.id"

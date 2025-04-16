@@ -1,22 +1,5 @@
-/*
- * Copyright 2023 Comcast Cable Communications Management, LLC
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
-const API_KEY_V4 = import.meta.env.TOKEN
-const API_BASE = import.meta.env.BASE_URL
+const BEARER_TOKEN = import.meta.env.VITE_TOKEN
+const API_BASE = import.meta.env.VITE_BASE_URL
 
 let config
 let baseImageUrl
@@ -25,12 +8,21 @@ const basePosterSize = 'w185'
 const defaultFetchParams = {
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + API_KEY_V4,
+    Authorization: 'Bearer ' + BEARER_TOKEN,
   },
 }
 
 export function getImageUrl(path, posterSize = basePosterSize) {
-  return baseImageUrl + posterSize + path
+  // Fallback base URL if config not loaded
+  const fallbackBaseUrl = 'https://quickfox.s3.us-west-002.backblazeb2.com/top-tv/channels/'
+
+  // If full URL is already in the path, just return it
+  if (path?.startsWith('http')) return path
+
+  // Use baseImageUrl if available, otherwise fallback
+  const baseUrl = baseImageUrl || fallbackBaseUrl
+
+  return baseUrl + (posterSize || '') + path
 }
 
 function get(...args) {
@@ -48,6 +40,15 @@ function _get(path, params = {}) {
   }).then((r) => r.json())
 }
 
+function post(path, body = {}, params = {}) {
+  return fetch(API_BASE + path, {
+    method: 'POST',
+    ...defaultFetchParams,
+    body: JSON.stringify(body),
+    ...params,
+  }).then((r) => r.json())
+}
+
 function loadConfig() {
   return _get('/configuration').then((data) => {
     config = data
@@ -58,5 +59,6 @@ function loadConfig() {
 
 export default {
   get,
+  post,
   loadConfig,
 }

@@ -26,12 +26,12 @@ export default Blits.Component('PortalItem', {
       :color="$backgroundColor"
       :effects="[{type: 'radius', props: {radius: 6}}]"
     >
-      <Element src="assets/image.png" w="300" h="250" x="60" />
+      <Element src="$image" w="300" h="250" x="60" />
       <!-- <Text x="30" y="140" :content="$title" size="42" font="raleway" :color="$fontColor" letterspacing="2" /> -->
       <!-- <Text x="30" y="200" :content="$description" maxwidth="300" size="28" :color="$fontColor" lineheight="32" /> -->
     </Element>
   `,
-  props: ['title', 'description', 'id'],
+  props: ['title', 'image', 'description', 'id', 'stream_url'],
   state() {
     return {
       backgroundColor: '#44037a',
@@ -52,10 +52,18 @@ export default Blits.Component('PortalItem', {
   },
   input: {
     enter() {
-      this.$router.to(`/${this.id}`)
+      if (this.stream_url) {
+        console.log('Passing stream_url:', this.stream_url)
+        this.$router.to('/player', {
+          stream_url: this.stream_url,
+        })
+      } else {
+        console.error('❌ stream_url is undefined or null!')
+      }
     },
     back() {
       // intercept
+      this.$router.back()
     },
   },
 })

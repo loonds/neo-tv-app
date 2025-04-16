@@ -1,20 +1,3 @@
-/*
- * Copyright 2024 Comcast Cable Communications Management, LLC
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import Blits from '@lightningjs/blits'
 import PlayerManager from '../managers/PlayerManager.js'
 
@@ -58,6 +41,7 @@ export default Blits.Component('Player', {
       </Element>
     </Element>
   `,
+  props: ['stream_url'],
   state() {
     return {
       controlsVisibility: 0,
@@ -80,21 +64,13 @@ export default Blits.Component('Player', {
       await PlayerManager.init()
     },
     async ready() {
-      await PlayerManager.load({
-        streamUrl:
-          'https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8',
-      })
-      const secondsToMmSs = (seconds) => new Date(seconds * 1000).toISOString().substr(14, 5)
-      const duration = PlayerManager.getVideoDuration()
-      if (duration) {
-        this.duration = secondsToMmSs(duration)
-        this.progressChunkSize = Math.round((this.progressLength / duration) * 100) / 100
+      try {
+        await PlayerManager.load({ streamUrl: this.stream_url })
+      } catch (err) {
+        console.error('🚨 Error loading video stream in PlayerManager:', err)
+        return
       }
-      this.$setInterval(() => {
-        const currentTime = PlayerManager.getCurrentTime()
-        this.currentTime = secondsToMmSs(currentTime)
-        this.progress = Math.round(currentTime * this.progressChunkSize)
-      }, 1000)
+
       this.play()
     },
     async destroy() {
