@@ -1,7 +1,7 @@
 import Blits from '@lightningjs/blits'
 
 import Portal from './pages/Portal'
-import Tmdb from './pages/Tmdb'
+import Home from './pages/Home.js'
 
 import Player from './pages/Player'
 import { FireBoltRoutes } from './pages/Firebolt.js'
@@ -34,9 +34,9 @@ export default Blits.Application({
     { path: '/send-otp', component: () => import('./pages/SendOTP.js') },
     { path: '/otp-verify', component: () => import('./pages/VerifyOTP.js') },
     // Demo routes
-    { path: '/', component: Portal, options: { keepAlive: true } },
+    { path: '/demo', component: Portal, options: { keepAlive: true } },
     { path: '/player', component: Player },
-    { path: '/demos/tmdb', component: Tmdb },
+    { path: '/', component: Home, options: { keepAlive: true } },
     ...FireBoltRoutes,
   ],
   hooks: {

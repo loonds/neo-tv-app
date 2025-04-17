@@ -1,10 +1,10 @@
 import Blits from '@lightningjs/blits'
 
-import { fetchAllChannelBylanguage, fetchAllLanguage } from '../api/providers/'
+import { fetchAllChannelBylanguage, fetchAllLanguage } from '../api/providers/index.js'
 import TmdbRow from '../components/TmdbRow.js'
 import Background from '../components/Background.js'
 
-export default Blits.Component('TMdb', {
+export default Blits.Component('Home', {
   components: {
     Background,
     TmdbRow,
@@ -17,7 +17,7 @@ export default Blits.Component('TMdb', {
           :y.transition="{value: $contentY, duration: $duration}"
           :alpha.transition="{value: $alpha, duration: $duration}"
         >
-          <Element src="assets/logo.png" x="140" y="90" w="193" h="102" />
+          <Element src="assets/logo.png" x="140" y="90" w="150" h="102" />
           <Text
             :content="$title"
             font="raleway"
