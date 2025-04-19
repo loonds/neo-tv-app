@@ -20,8 +20,8 @@ import Blits from '@lightningjs/blits'
 export default Blits.Component('PosterTitle', {
   template: `
     <Element
-      w="185"
-      h="278"
+      w="200"
+      h="200"
       x="$x"
       :src="$item.poster"
       :scale.transition="{value: $scale, duration: 200, easing: 'cubic-bezier(0.20, 1.00, 0.80, 1.00)'}"
