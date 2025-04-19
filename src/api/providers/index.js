@@ -8,6 +8,10 @@ export const fetchAllChannelBylanguage = (lang) => {
     .then(selectiveDataExtraction)
 }
 
+export const fetchAllQuickChannel = () => {
+  return api.post('/api/v5/quick-channels').then(selectiveDataExtraction)
+}
+
 export const fetchAllLanguage = () => {
   return api.post('/api/v5/languages').then((data) => {
     return data.data.map((item) => {

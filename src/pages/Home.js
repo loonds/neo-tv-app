@@ -1,6 +1,6 @@
 import Blits from '@lightningjs/blits'
 
-import { fetchAllChannelBylanguage, fetchAllLanguage } from '../api/providers/index.js'
+import { fetchAllChannelBylanguage, fetchAllQuickChannel } from '../api/providers/index.js'
 import TmdbRow from '../components/TmdbRow.js'
 import Background from '../components/Background.js'
 
@@ -71,7 +71,7 @@ export default Blits.Component('Home', {
       this.rows = [
         {
           title: 'Best Hindi news channels',
-          items: await fetchAllChannelBylanguage('Hindi'),
+          items: await fetchAllQuickChannel(),
           type: 'Poster',
           width: 215,
           y: 0,
@@ -129,6 +129,13 @@ export default Blits.Component('Home', {
           this.overview = item.overview
         }
       })
+
+      // Delay transitions to avoid early cancellation
+      setTimeout(() => {
+        this.duration = 300
+        this.contentY = 0
+        this.alpha = 1
+      }, 50)
     },
     focus() {
       this.$trigger('focused')
@@ -136,6 +143,7 @@ export default Blits.Component('Home', {
   },
   input: {
     up() {
+      if (!this.rows?.[this.focused - 1]) return
       this.contentY = 0
       this.duration = 300
       this.focused = Math.max(this.focused - 1, 0)
@@ -143,6 +151,7 @@ export default Blits.Component('Home', {
       this.alpha = this.focused === 0 ? 1 : 0
     },
     down() {
+      if (!this.rows?.[this.focused + 1]) return
       this.contentY = -60
       this.duration = 200
       this.focused = Math.min(this.focused + 1, this.rows.length - 1)
