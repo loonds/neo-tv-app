@@ -1,7 +1,7 @@
 {
-  "name": "@lightningjs/blits-example-app",
+  "name": "Neo TV App",
   "version": "1.13.0",
-  "description": "Lightning 3 Blits Example App",
+  "description": "A LightningJS application for the Neo TV platform",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "20": "^3.1.9",
-    "@firebolt-js/sdk": "^1.4.1",
     "@lightningjs/blits": "^1.26.2"
   }
 }

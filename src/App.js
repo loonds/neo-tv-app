@@ -4,7 +4,6 @@ import Portal from './pages/Portal'
 import Home from './pages/Home.js'
 
 import Player from './pages/Player'
-import { FireBoltRoutes } from './pages/Firebolt.js'
 import SourceInfo from './components/SourceInfo.js'
 
 const queryString = new URLSearchParams(window.location.search)
@@ -37,7 +36,6 @@ export default Blits.Application({
     { path: '/demo', component: Portal, options: { keepAlive: true } },
     { path: '/player', component: Player },
     { path: '/', component: Home, options: { keepAlive: true } },
-    ...FireBoltRoutes,
   ],
   hooks: {
     ready() {
