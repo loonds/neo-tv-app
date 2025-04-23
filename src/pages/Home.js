@@ -18,17 +18,17 @@ export default Blits.Component('Home', {
           :alpha.transition="{value: $alpha, duration: $duration}"
         >
           <Element src="assets/logo.png" x="140" y="90" w="150" h="102" />
-          <Text
-            :content="$title"
-            font="raleway"
-            size="80"
-            x="140"
-            y="300"
-            maxwidth="1000"
-            @loaded="$positionText"
-            maxlines="1"
-          />
-          <Text :content="$overview" maxwidth="880" x="140" y="430" lineheight="40" maxlines="3" />
+          <!-- <Text -->
+          <!-- :content="$title" -->
+          <!-- font="raleway" -->
+          <!-- size="80" -->
+          <!-- x="140" -->
+          <!-- y="300" -->
+          <!-- maxwidth="1000" -->
+          <!-- @loaded="$positionText" -->
+          <!-- maxlines="1" -->
+          <!-- /> -->
+          <!-- <Text :content="$overview" maxwidth="880" x="140" y="430" lineheight="40" maxlines="3" /> -->
         </Element>
         <Element :y.transition="{value: $y, duration: 300, easing: 'cubic-bezier(0.20, 1.00, 0.80, 1.00)'}">
           <TmdbRow
@@ -131,11 +131,11 @@ export default Blits.Component('Home', {
       })
 
       // Delay transitions to avoid early cancellation
-      setTimeout(() => {
-        this.duration = 300
-        this.contentY = 0
-        this.alpha = 1
-      }, 50)
+      // setTimeout(() => {
+      //   this.duration = 300
+      //   this.contentY = 0
+      //   this.alpha = 1
+      // }, 50)
     },
     focus() {
       this.$trigger('focused')

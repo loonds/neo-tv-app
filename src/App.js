@@ -2,7 +2,7 @@ import Blits from '@lightningjs/blits'
 
 import Portal from './pages/Portal'
 import Home from './pages/Home.js'
-
+import Intro from './pages/Intro.js'
 import Player from './pages/Player'
 import SourceInfo from './components/SourceInfo.js'
 
@@ -34,11 +34,12 @@ export default Blits.Application({
     { path: '/otp-verify', component: () => import('./pages/VerifyOTP.js') },
     // Demo routes
     { path: '/demo', component: Portal, options: { keepAlive: true } },
+    { path: '/intro', component: Intro },
     { path: '/player', component: Player },
     { path: '/', component: Home, options: { keepAlive: true } },
   ],
   hooks: {
-    ready() {
+    async ready() {
       if (process.env.NODE_ENV === 'testing') {
         this.showFPS = false
       }
@@ -50,6 +51,8 @@ export default Blits.Application({
       this.$listen('clearBackground', () => {
         this.backgroundColor = 'transparent'
       })
+      this.$router.to('/intro')
+      setTimeout(() => this.$router.to('/'), 3000)
     },
   },
   input: {
