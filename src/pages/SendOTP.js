@@ -35,7 +35,7 @@ export default Blits.Component('SendOTP', {
         <Element x="360" w="400" y="-45" h="270" :y.transition="$keyboardY" :alpha.transition="$keyboardAlpha">
           <Keyboard margin="70" perRow="7" ref="keyboard" />
         </Element>
-
+    
         <Input ref="username" :inputText="$username" placeholderText="Email/Phone" />
         <Button ref="button" y="210" buttonText="Submit" textAlign="center" />
       </Element>
@@ -82,8 +82,6 @@ export default Blits.Component('SendOTP', {
     handleKey(char) {
       if (this.focusable[this.index] === 'username') {
         this.username += char
-      } else if (this.focusable[this.index] === 'password') {
-        this.password += char
       }
     },
     registerListeners() {
@@ -101,14 +99,6 @@ export default Blits.Component('SendOTP', {
       this.index = this.index === this.focusable.length - 1 ? 0 : this.index + 1
       this.setFocus()
     },
-    right() {
-      console.log("refocus child because we don't have a right focus")
-      this.setFocus()
-    },
-    left() {
-      console.log("refocus child because we don't have a left focus")
-      this.setFocus()
-    },
     enter() {
       const currentFocusable = this.focusable[this.index]
       let element = null
@@ -116,17 +106,7 @@ export default Blits.Component('SendOTP', {
         case 'button':
           console.log('submitting form:', this.username, this.password, this.checkbox)
           break
-        case 'checkbox':
-          this.checkbox = !this.checkbox
-          break
-        case 'progress':
-          this.progress = this.progress === 100 ? 20 : this.progress + 20
-          break
-        case 'toggle':
-          this.toggle = !this.toggle
-          break
         case 'username':
-        case 'password':
           this.keyboardAlpha = 1
           this.keyboardY = -45
           element = this.$select('keyboard')
@@ -143,9 +123,6 @@ export default Blits.Component('SendOTP', {
       switch (currentFocusable) {
         case 'username':
           this.username = this.removeLastChar(this.username)
-          break
-        case 'password':
-          this.password = this.removeLastChar(this.password)
           break
       }
     },
