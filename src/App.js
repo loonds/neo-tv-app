@@ -31,7 +31,7 @@ export default Blits.Application({
   routes: [
     // Send Otp page
     { path: '/send-otp', component: () => import('./pages/SendOTP.js') },
-    { path: '/otp-verify', component: () => import('./pages/VerifyOTP.js') },
+    { path: '/verify-otp', component: () => import('./pages/VerifyOTP.js') },
     // Demo routes
     { path: '/demo', component: Portal, options: { keepAlive: true } },
     { path: '/intro', component: Intro },
@@ -51,8 +51,9 @@ export default Blits.Application({
       this.$listen('clearBackground', () => {
         this.backgroundColor = 'transparent'
       })
-      this.$router.to('/intro')
-      setTimeout(() => this.$router.to('/'), 3000)
+
+      // this.$router.to('/intro')
+      // setTimeout(() => this.$router.to('/'), 3000)
     },
   },
   input: {

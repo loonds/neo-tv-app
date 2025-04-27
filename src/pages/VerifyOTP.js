@@ -13,48 +13,40 @@ export default Blits.Component('VerifyOTP', {
   state() {
     return {
       username: '',
-      inputValue: '',
+      otp: '',
+      index: 0,
+      keyboardAlpha: 0,
+      keyboardY: 0,
+      focusable: ['otp', 'button', 'keyboard'],
     }
-  },
-
-  methods: {
-    handleInputChange(value) {
-      this.state.inputValue = value
-      console.log('Input Changed:', value)
-    },
-
-    handleSendOTP() {
-      console.log('Send OTP to:', this.state.inputValue)
-      // You can add further logic to actually trigger OTP sending
-    },
   },
 
   template: `
     <Element>
-      <Element x="780" y="450">
-        <Element x="360" w="400" y="-45" h="270" :y.transition="$keyboardY" :alpha.transition="$keyboardAlpha">
+      <Element x="960" y="540" mount="0.5" w="600" h="500">
+        <!-- Form Title -->
+        <!-- Form Title Centered -->
+        <Text content="Verify OTP" x="150" mount="0.5" y="0" textColor="white" fontSize="42" textAlign="center" />
+    
+        <!-- Input Field -->
+        <Input ref="otp" :inputText="$otp" placeholderText="OTP" y="80" />
+    
+        <!-- Submit Button -->
+        <Button ref="button" y="180" buttonText="Login" textAlign="center" color="blue" />
+    
+        <!-- Keyboard -->
+        <Element x="0" y="280" :y.transition="$keyboardY" :alpha.transition="$keyboardAlpha">
           <Keyboard margin="70" perRow="7" ref="keyboard" />
         </Element>
-
-        <Input ref="username" :inputText="$username" placeholderText="Email/Phone" />
-        <Button ref="button" y="210" buttonText="Submit" textAlign="center" />
       </Element>
     </Element>
   `,
-  state() {
-    return {
-      username: '',
-      index: 0,
-      keyboardAlpha: 0,
-      keyboardY: 0,
-      focusable: ['username', 'button', 'keyboard'],
-    }
-  },
+
   hooks: {
     ready() {
-      const username = this.$select('username')
-      if (username && username.$focus) {
-        username.$focus()
+      const otp = this.$select('otp')
+      if (otp && otp.$focus) {
+        otp.$focus()
       }
     },
     focus() {
@@ -68,9 +60,9 @@ export default Blits.Component('VerifyOTP', {
       this.registerListeners()
     },
   },
+
   methods: {
     setFocus() {
-      console.log('setting focus to:', this.focusable[this.index])
       const next = this.$select(this.focusable[this.index])
       if (next && next.$focus) {
         next.$focus()
@@ -82,8 +74,6 @@ export default Blits.Component('VerifyOTP', {
     handleKey(char) {
       if (this.focusable[this.index] === 'username') {
         this.username += char
-      } else if (this.focusable[this.index] === 'password') {
-        this.password += char
       }
     },
     registerListeners() {
@@ -92,6 +82,7 @@ export default Blits.Component('VerifyOTP', {
       })
     },
   },
+
   input: {
     up() {
       this.index = this.index === 0 ? this.focusable.length - 1 : this.index - 1
@@ -101,52 +92,27 @@ export default Blits.Component('VerifyOTP', {
       this.index = this.index === this.focusable.length - 1 ? 0 : this.index + 1
       this.setFocus()
     },
-    right() {
-      console.log("refocus child because we don't have a right focus")
-      this.setFocus()
-    },
-    left() {
-      console.log("refocus child because we don't have a left focus")
-      this.setFocus()
-    },
     enter() {
       const currentFocusable = this.focusable[this.index]
       let element = null
       switch (currentFocusable) {
         case 'button':
-          console.log('submitting form:', this.username, this.password, this.checkbox)
-          break
-        case 'checkbox':
-          this.checkbox = !this.checkbox
-          break
-        case 'progress':
-          this.progress = this.progress === 100 ? 20 : this.progress + 20
-          break
-        case 'toggle':
-          this.toggle = !this.toggle
+          console.log('Sending OTP to:', this.username)
           break
         case 'username':
-        case 'password':
           this.keyboardAlpha = 1
-          this.keyboardY = -45
+          this.keyboardY = 0
           element = this.$select('keyboard')
           if (element && element.$focus) {
             element.$focus()
           }
           break
-        default:
-          console.warn('Unrecognized focusable element:', currentFocusable)
       }
     },
     back() {
       const currentFocusable = this.focusable[this.index]
-      switch (currentFocusable) {
-        case 'username':
-          this.username = this.removeLastChar(this.username)
-          break
-        case 'password':
-          this.password = this.removeLastChar(this.password)
-          break
+      if (currentFocusable === 'username') {
+        this.username = this.removeLastChar(this.username)
       }
     },
     any(e) {

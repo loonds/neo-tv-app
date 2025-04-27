@@ -13,43 +13,33 @@ export default Blits.Component('SendOTP', {
   state() {
     return {
       username: '',
-      inputValue: '',
-    }
-  },
-
-  methods: {
-    handleInputChange(value) {
-      this.state.inputValue = value
-      console.log('Input Changed:', value)
-    },
-
-    handleSendOTP() {
-      console.log('Send OTP to:', this.state.inputValue)
-      // You can add further logic to actually trigger OTP sending
-    },
-  },
-
-  template: `
-    <Element>
-      <Element x="780" y="450">
-        <Element x="360" w="400" y="-45" h="270" :y.transition="$keyboardY" :alpha.transition="$keyboardAlpha">
-          <Keyboard margin="70" perRow="7" ref="keyboard" />
-        </Element>
-    
-        <Input ref="username" :inputText="$username" placeholderText="Email/Phone" />
-        <Button ref="button" y="210" buttonText="Submit" textAlign="center" />
-      </Element>
-    </Element>
-  `,
-  state() {
-    return {
-      username: '',
       index: 0,
       keyboardAlpha: 0,
       keyboardY: 0,
       focusable: ['username', 'button', 'keyboard'],
     }
   },
+
+  template: `
+    <Element>
+      <Element x="960" y="540" mount="0.5" w="600" h="500">
+        <!-- Form Title Centered -->
+        <Text content="Login | Send OTP" x="300" mount="0.5" y="0" textColor="white" fontSize="42" textAlign="center" />
+    
+        <!-- Input Field -->
+        <Input ref="username" :inputText="$username" placeholderText="Email or Phone" y="80" />
+    
+        <!-- Submit Button -->
+        <Button ref="button" y="180" buttonText="Send OTP" textAlign="center" color="blue" />
+    
+        <!-- Keyboard -->
+        <Element x="0" y="280" :y.transition="$keyboardY" :alpha.transition="$keyboardAlpha">
+          <Keyboard margin="70" perRow="7" ref="keyboard" />
+        </Element>
+      </Element>
+    </Element>
+  `,
+
   hooks: {
     ready() {
       const username = this.$select('username')
@@ -68,9 +58,9 @@ export default Blits.Component('SendOTP', {
       this.registerListeners()
     },
   },
+
   methods: {
     setFocus() {
-      console.log('setting focus to:', this.focusable[this.index])
       const next = this.$select(this.focusable[this.index])
       if (next && next.$focus) {
         next.$focus()
@@ -90,6 +80,7 @@ export default Blits.Component('SendOTP', {
       })
     },
   },
+
   input: {
     up() {
       this.index = this.index === 0 ? this.focusable.length - 1 : this.index - 1
@@ -104,26 +95,25 @@ export default Blits.Component('SendOTP', {
       let element = null
       switch (currentFocusable) {
         case 'button':
-          console.log('submitting form:', this.username, this.password, this.checkbox)
+          console.log('Sending OTP to:', this.username)
+          this.$router.to('/verify-otp', {
+            username: this.username,
+          })
           break
         case 'username':
           this.keyboardAlpha = 1
-          this.keyboardY = -45
+          this.keyboardY = 0
           element = this.$select('keyboard')
           if (element && element.$focus) {
             element.$focus()
           }
           break
-        default:
-          console.warn('Unrecognized focusable element:', currentFocusable)
       }
     },
     back() {
       const currentFocusable = this.focusable[this.index]
-      switch (currentFocusable) {
-        case 'username':
-          this.username = this.removeLastChar(this.username)
-          break
+      if (currentFocusable === 'username') {
+        this.username = this.removeLastChar(this.username)
       }
     },
     any(e) {

@@ -2,41 +2,38 @@ import Blits from '@lightningjs/blits'
 
 export default Blits.Component('Button', {
   template: `
-    <Element
-      w="300"
-      h="80"
-      color="$color || 'red'"
-      :effects="[{type: 'radius', props: {radius: 20}}]"
-      :scale.transition="$scale"
-      :rotation="$rotate"
-    >
+    <Element w="$width" h="$height" :color="$backgroundColor" :effects="[{type: 'radius', props: {radius: $radius}}]">
+      <Text :content="$buttonText" color="#121212" lineheight="$height" size="$fontSize" :x="$x" :mount="{x: $mountX}" />
     </Element>
   `,
-  props: ['color'],
+  props: ['buttonText', 'textAlign'],
   state() {
     return {
-      alpha: 0.4,
-      scale: 1,
-      rotate: 0,
+      backgroundColor: '#888',
+      fontSize: 21,
+      height: 60,
+      radius: 6,
+      width: 300,
     }
+  },
+  computed: {
+    mountX() {
+      return this.textAlign === 'right' ? 1 : this.textAlign === 'center' ? 0.5 : 0
+    },
+    x() {
+      return this.textAlign === 'right'
+        ? this.width - 20
+        : this.textAlign === 'center'
+        ? this.width / 2
+        : 20
+    },
   },
   hooks: {
     focus() {
-      this.$log.info(`Button with color ${this.color} received focus`)
-      this.alpha = 1
-      this.scale = this.scale === 1 ? 1.2 : 1
+      this.backgroundColor = '#fff'
     },
     unfocus() {
-      this.$log.info(`Button with color ${this.color} lost focus`)
-      this.alpha = 0.4
-      this.scale = 1
-      this.rotate = 0
-    },
-  },
-  input: {
-    enter() {
-      // this.rotate = this.rotate === 0 ? -4 : 0
-      this.scale = this.scale === 1.2 ? 1.3 : 1.2
+      this.backgroundColor = '#888'
     },
   },
 })

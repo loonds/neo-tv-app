@@ -3,14 +3,17 @@ import Blits from '@lightningjs/blits'
 import { fetchAllChannelBylanguage, fetchAllQuickChannel } from '../api/providers/index.js'
 import TmdbRow from '../components/TmdbRow.js'
 import Background from '../components/Background.js'
+import ProgressBar from '../components/ProgressBar.js'
 
 export default Blits.Component('Home', {
   components: {
     Background,
     TmdbRow,
+    ProgressBar,
   },
   template: `
     <Element w="1920" h="1080" color="black">
+      <ProgressBar ref="progress" y="690" :progress="$progress" />
       <Background :bgImg="$src" />
       <Element>
         <Element
@@ -18,17 +21,17 @@ export default Blits.Component('Home', {
           :alpha.transition="{value: $alpha, duration: $duration}"
         >
           <Element src="assets/logo.png" x="140" y="90" w="150" h="102" />
-          <!-- <Text -->
-          <!-- :content="$title" -->
-          <!-- font="raleway" -->
-          <!-- size="80" -->
-          <!-- x="140" -->
-          <!-- y="300" -->
-          <!-- maxwidth="1000" -->
-          <!-- @loaded="$positionText" -->
-          <!-- maxlines="1" -->
-          <!-- /> -->
-          <!-- <Text :content="$overview" maxwidth="880" x="140" y="430" lineheight="40" maxlines="3" /> -->
+          <Text
+            :content="$title"
+            font="raleway"
+            size="80"
+            x="140"
+            y="300"
+            maxwidth="1000"
+            @loaded="$positionText"
+            maxlines="1"
+          />
+          <Text :content="$overview" maxwidth="880" x="140" y="430" lineheight="40" maxlines="3" />
         </Element>
         <Element :y.transition="{value: $y, duration: 300, easing: 'cubic-bezier(0.20, 1.00, 0.80, 1.00)'}">
           <TmdbRow
@@ -58,6 +61,7 @@ export default Blits.Component('Home', {
       overview: '',
       type: 'Poster',
       duration: 300,
+      progress: 20,
     }
   },
   watch: {
@@ -84,15 +88,15 @@ export default Blits.Component('Home', {
           y: 358,
         },
         {
-          title: 'Punjabi News channels',
-          items: await fetchAllChannelBylanguage('Punjabi'),
+          title: 'Hindi News channels',
+          items: await fetchAllChannelBylanguage('Hindi'),
           type: 'PosterTitle',
           width: 215,
           y: 1158,
         },
         {
-          title: 'Entertainment channels',
-          items: await fetchAllChannelBylanguage('Entertainment'),
+          title: 'Punjabi channels',
+          items: await fetchAllChannelBylanguage('Punjabi'),
           type: 'PosterTitle',
           width: 215,
           y: 1536,
@@ -117,6 +121,13 @@ export default Blits.Component('Home', {
           type: 'PosterTitle',
           width: 215,
           y: 3092,
+        },
+        {
+          title: 'Entertainment News channels',
+          items: await fetchAllChannelBylanguage('Entertainment'),
+          type: 'PosterTitle',
+          width: 215,
+          y: 3470,
         },
       ]
       this.focused = 0

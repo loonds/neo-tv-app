@@ -61,7 +61,7 @@ const selectiveDataExtraction = (data) => {
       background: getImageUrl(item.image, 'w1280'),
       identifier: item.id,
       title: item.channel_name || item.name,
-      overview: item.overview,
+      overview: item.categories,
       stream_url: item.stream_url,
     }
   })
