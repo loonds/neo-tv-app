@@ -34,9 +34,9 @@ Blits.Plugin(theme, 'sizes', {
   themes: {
     small: sizes.small,
     large: sizes.large,
-    xlarge: sizes.xlarge, // Add xlarge key to your `sizes.js`
+    xlarge: sizes.xlarge,
   },
-  base: 'small',
+  base: 'xlarge',
   current: sizeMode,
 })
 
@@ -53,11 +53,11 @@ Blits.Launch(App, 'app', {
     85: 'sourceCode', // U or u key
   },
   fonts: [
-    { family: 'lato', type: 'msdf', file: 'fonts/Lato-Regular.ttf' },
-    { family: 'raleway', type: 'msdf', file: 'fonts/Raleway-ExtraBold.ttf' },
+    { family: 'lato', type: 'web', file: 'fonts/Lato-Regular.ttf' },
+    { family: 'raleway', type: 'web', file: 'fonts/Raleway-ExtraBold.ttf' },
     { family: 'opensans', type: 'web', file: 'fonts/OpenSans-Medium.ttf' },
-    { family: 'kalam', type: 'msdf', file: 'fonts/Kalam-Regular.ttf' },
-    { family: 'lato-black', type: 'msdf', file: 'fonts/Lato-Black.ttf' },
+    { family: 'kalam', type: 'web', file: 'fonts/Kalam-Regular.ttf' },
+    { family: 'lato-black', type: 'web', file: 'fonts/Lato-Black.ttf' },
   ],
   canvasColor: 'transparent',
   viewportMargin: 100,

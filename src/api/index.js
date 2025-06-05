@@ -1,14 +1,23 @@
-const BEARER_TOKEN = import.meta.env.VITE_TOKEN
+const SECRET_KEY = import.meta.env.VITE_SECRET_KEY
 const API_BASE = import.meta.env.VITE_BASE_URL
+const TOKEN = import.meta.env.VITE_TOKEN
 
 let config
 let baseImageUrl
 const basePosterSize = 'w185'
 
+const getToken = () => localStorage.getItem('authToken')
+
 const defaultFetchParams = {
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + BEARER_TOKEN,
+    Authorization: 'Bearer ' + TOKEN,
+  },
+}
+const extraHeaders = {
+  headers: {
+    'Content-Type': 'application/json',
+    'secret-key': SECRET_KEY,
   },
 }
 
@@ -40,10 +49,21 @@ function _get(path, params = {}) {
   }).then((r) => r.json())
 }
 
-function post(path, body = {}, params = {}) {
+function post(path, body = {}, params = {}, skipAuth = false) {
+  const headers = skipAuth
+    ? {
+        // If skipping auth, use ONLY secret-key
+        'Content-Type': 'application/json',
+        ...extraHeaders.headers,
+      }
+    : {
+        ...defaultFetchParams.headers,
+        ...extraHeaders.headers,
+      }
+
   return fetch(API_BASE + path, {
     method: 'POST',
-    ...defaultFetchParams,
+    headers,
     body: JSON.stringify(body),
     ...params,
   }).then((r) => r.json())

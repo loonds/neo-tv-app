@@ -20,8 +20,8 @@ import Blits from '@lightningjs/blits'
 export default Blits.Component('Poster', {
   template: `
     <Element
-      w="1280"
-      h="720"
+      w="680"
+      h="380"
       x="$x"
       :src="$item.background"
       color="{top: '#fff', bottom: '#000'}"

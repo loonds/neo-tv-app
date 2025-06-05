@@ -43,7 +43,7 @@ export default Blits.Component('PosterTitle', {
     return {
       scale: 1,
       alpha: 0,
-      y: 278,
+      y: 210,
       // color: '#333',
     }
   },
@@ -57,13 +57,13 @@ export default Blits.Component('PosterTitle', {
       // this.color = '#fff'
       this.scale = 1.1
       this.alpha = 1
-      this.y = 288
+      this.y = 220
     },
     unfocus() {
       // this.color = '#333'
       this.scale = 1
       this.alpha = 0
-      this.y = 278
+      this.y = 210
     },
   },
   input: {

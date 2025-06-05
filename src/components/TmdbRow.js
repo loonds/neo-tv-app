@@ -12,6 +12,7 @@ export default Blits.Component('TmdbRow', {
   },
   template: `
     <Element>
+      <Text content="$title" font="raleway" size="30" x="140" />
       <Element :x.transition="{value: $x, duration: 300, easing: 'ease-in-out'}" y="80">
         <Component
           is="$type"
@@ -39,7 +40,22 @@ export default Blits.Component('TmdbRow', {
   },
   computed: {
     x() {
-      return 150 - Math.min(this.focused, this.items.length - 1720 / this.width) * this.width
+      const screenWidth = 1920
+      const sidePadding = 150
+      const rowWidth = screenWidth - sidePadding * 2
+      const visibleCount = Math.floor(rowWidth / this.width)
+      const totalItems = this.items.length
+
+      // Ensure we scroll only if needed
+      const maxOffset = Math.max(totalItems - visibleCount, 0)
+      const clampedFocus = Math.min(this.focused, maxOffset)
+
+      // Special case: if all items fit, no scroll needed
+      if (totalItems <= visibleCount) {
+        return sidePadding
+      }
+
+      return sidePadding - clampedFocus * this.width
     },
   },
   watch: {
@@ -59,17 +75,16 @@ export default Blits.Component('TmdbRow', {
       this.focused = Math.min(this.focused + 1, this.items.length - 1)
     },
     enter() {
-      if (this.stream_url) {
-        console.log('Passing stream_url:', this.stream_url)
+      const selected = this.items[this.focused]
+      if (selected?.stream_url) {
         this.$router.to('/player', {
-          stream_url: this.stream_url,
+          stream_url: selected.stream_url,
         })
       } else {
-        console.error('❌ stream_url is undefined or null!')
+        console.error('❌ No stream_url in selected item:', selected)
       }
     },
     back() {
-      // intercept
       this.$router.back()
     },
   },

@@ -35,7 +35,7 @@ export default Blits.Component('ProgressBar', {
   state() {
     return {
       radius: 3,
-      width: 630,
+      width: 1920,
     }
   },
 })

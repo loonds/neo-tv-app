@@ -15,7 +15,7 @@ export default Blits.Application({
     SourceInfo,
   },
   template: `
-    <Element w="1920" h="1080" :color="$backgroundColor">
+    <Element :w="$width" :h="$height" :color="$backgroundColor">
       <RouterView w="100%" h="100%" />
       <FPScounter x="1610" :show="$showFPS" />
       <SourceInfo ref="info" :show="$showInfo" />
@@ -29,10 +29,9 @@ export default Blits.Application({
     }
   },
   routes: [
-    // Send Otp page
     { path: '/send-otp', component: () => import('./pages/SendOTP.js') },
     { path: '/verify-otp', component: () => import('./pages/VerifyOTP.js') },
-    // Demo routes
+
     { path: '/demo', component: Portal, options: { keepAlive: true } },
     { path: '/intro', component: Intro },
     { path: '/player', component: Player },
@@ -51,6 +50,16 @@ export default Blits.Application({
       this.$listen('clearBackground', () => {
         this.backgroundColor = 'transparent'
       })
+      const token = localStorage.getItem('authToken')
+      console.log('Token:', token)
+
+      if (!token) {
+        console.log('Token Not found. Redirecting to /')
+        this.$router.to('/send-otp')
+      } else {
+        console.log('Token found. Redirecting to /')
+        this.$router.to('/')
+      }
 
       // this.$router.to('/intro')
       // setTimeout(() => this.$router.to('/'), 3000)
